@@ -13,7 +13,7 @@ const getWeb3 = new Promise((resolve, reject) => {
   } else {
     reject(new Error("Unable to connect to Metamask"));
   }
-  ethereum.enable();
+  ethereum.request({ method: "eth_requestAccounts" });
 })
   .then((result) => {
     return new Promise((resolve, reject) => {

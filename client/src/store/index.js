@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 import state from "./state";
 import getWeb3 from "../network/getWeb3";
 import pollWeb3 from "../network/pollWeb3";
-// import getContract from "../network/getContract";
+import getContract from "../network/getContract";
 
 const store = createStore({
   strict: true,
@@ -25,10 +25,10 @@ const store = createStore({
       state.web3.coinbase = data.coinbase;
       state.web3.balance = parseInt(data.balance, 10);
     },
-    // registerContractInstance(state, data) {
-    //   console.log("contract instance: ", data);
-    //   state.contractInstance = () => data;
-    // },
+    registerContractInstance(state, data) {
+      console.log("contract instance: ", data);
+      state.contractInstance = () => data;
+    },
   },
   actions: {
     registerWeb3({ commit }) {
@@ -44,13 +44,13 @@ const store = createStore({
     updateWeb3({ commit }, data) {
       commit("updateWeb3Instance", data);
     },
-    // getContractInstance({ commit }) {
-    //   getContract
-    //     .then((result) => {
-    //       commit("registerContractInstance", result);
-    //     })
-    //     .catch((e) => console.log(e));
-    // },
+    getContractInstance({ commit }) {
+      getContract
+        .then((result) => {
+          commit("registerContractInstance", result);
+        })
+        .catch((e) => console.log(e));
+    },
   },
 });
 
